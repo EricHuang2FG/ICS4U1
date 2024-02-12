@@ -1,11 +1,40 @@
 public class Fraction {
 
-    public int numerator;
-    public int denominator;
+    private int numerator;
+    private int denominator;
 
     public Fraction(int numerator, int denominator) {
         this.numerator = numerator;
-        this.denominator = denominator;
+        if (denominator == 0) {
+            System.out.println("Denominator can't be 0. It is set to 1 instead.");
+            this.denominator = 1;
+        } else {
+            this.denominator = denominator;
+        }
+        reduce();
+    }
+
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+
+    public void setNumerator(int newNum) {
+        numerator = newNum;
+        reduce();
+    }
+
+    public void setDenominator(int newDen) {
+        if (newDen != 0) {
+            denominator = newDen;
+        } else {
+            System.out.println("Denominator can't be 0. It is set to 1 instead.");
+            denominator = 1;
+        }
+        reduce();
     }
 
     public String toString() {
@@ -15,7 +44,7 @@ public class Fraction {
         return numerator + "/" + denominator;
     }
 
-    public void reduce() {
+    private void reduce() {
         int small = Math.min(denominator, numerator);
         int start = 2;
         while (start <= small) {
@@ -32,17 +61,32 @@ public class Fraction {
     public void add(Fraction other) {
         numerator = numerator * other.denominator + denominator * other.numerator;
         denominator = denominator * other.denominator;
+        reduce();
     }
 
     public void subtract(Fraction other) {
         numerator = numerator * other.denominator - denominator * other.numerator;
         denominator = denominator * other.denominator;
+        reduce();
+    }
+
+    public void multiply(Fraction other) {
+        numerator = numerator * other.numerator;
+        denominator = denominator * other.denominator;
+        reduce();
+    }
+
+    public void divide(Fraction other) {
+        numerator = numerator * other.denominator;
+        denominator = denominator * other.numerator;
+        reduce();
     }
 
     public void reciprocal() {
         int temp = numerator;
         numerator = denominator;
         denominator = temp;
+        reduce();
     }
 
     public double value() {
@@ -51,7 +95,21 @@ public class Fraction {
 
     public String toMixed() {
         int front = numerator / denominator;
-        int num = numerator % denominator;
-        return front + " + "+ num + "/"+denominator;
+        if (numerator % denominator != 0) {
+            return front + " + " + (numerator % denominator) + "/" + denominator;
+        }
+        return "" + front;
+    }
+
+    public boolean equal(Fraction other) {
+        return (value() == other.value());
+    }
+
+    public boolean greaterThan(Fraction other) {
+        return (value() > other.value());
+    }
+
+    public boolean lessThan(Fraction other) {
+        return (value() < other.value());
     }
 }
