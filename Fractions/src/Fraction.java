@@ -58,6 +58,22 @@ public class Fraction {
         }
     }
 
+    public static Fraction add(Fraction a, Fraction b) {
+        return (new Fraction(a.numerator * b.denominator + a.denominator * b.numerator, a.denominator * b.denominator));
+    }
+
+    public static Fraction subtract(Fraction a, Fraction b) {
+        return (new Fraction(a.numerator * b.denominator - a.denominator * b.numerator, a.denominator * b.denominator));
+    }
+
+    public static Fraction multiply(Fraction a, Fraction b) {
+        return (new Fraction(a.numerator * b.numerator, a.denominator * b.denominator));
+    }
+
+    public static Fraction divide(Fraction a, Fraction b) {
+        return (new Fraction(a.numerator * b.denominator, a.denominator * b.numerator));
+    }
+
     public void add(Fraction other) {
         numerator = numerator * other.denominator + denominator * other.numerator;
         denominator = denominator * other.denominator;

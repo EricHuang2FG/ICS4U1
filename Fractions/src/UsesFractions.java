@@ -17,5 +17,8 @@ public class UsesFractions {
         a.setNumerator(3);
         a.setDenominator(4);
         System.out.println(a.toString());
+        Fraction c = new Fraction(1, 5);
+        Fraction d = new Fraction(5, 7);
+        System.out.println(Fraction.divide(c, d).toString());
     }
 }
