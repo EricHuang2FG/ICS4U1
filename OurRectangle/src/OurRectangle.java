@@ -44,6 +44,7 @@ public class OurRectangle {
 //        int[] tr2 = {r2.getX() + r2.getWidth(), r2.getY() + r2.getHeight()};
 //        int[][] rect2 = {bl2, tl2, br2, tr2};
 //        int count = 0;
+        // do swapping!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if ((r1.getX() >= r2.getX() + r2.getWidth() || r2.getX() >= r2.getX() + r2.getWidth()) && (r1.getY() >= r2.getY() + r2.getHeight() || r2.getY() >= r2.getY() + r2.getHeight())) { // no intersection
             return new OurRectangle(0, 0, 0, 0);
         } else if ((r2.getX() > r1.getX() && r2.getX() < r1.getX() + r1.getWidth()) && (r2.getX() + r2.getWidth() > r1.getX() + r1.getWidth())) { // one intersection
