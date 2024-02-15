@@ -80,7 +80,6 @@ public class OurRectangle {
     }
 
     public static int totalPerimeter(OurRectangle r1, OurRectangle r2) {
-        // can we just use the intersection rectangle?
         OurRectangle intersect = OurRectangle.intersection(r1, r2);
         
         if (intersect.getX() == 0 && intersect.getY() == 0 && intersect.getWidth() == 0 && intersect.getHeight() == 0) {
@@ -90,17 +89,7 @@ public class OurRectangle {
         } else if (r2.contains(r1)) {
             return r2.perimeter();
         } else {
-            // using the intersection triangle will simplify all of this
-            OurRectangle left = new OurRectangle(r1.getX(), r1.getY(), r1.getWidth(), r1.getHeight());
-            OurRectangle right = new OurRectangle(r2.getX(), r2.getY(), r2.getWidth(), r2.getHeight());
-    
-            if (r1.getX() > r2.getX()) { // swap left and right if necessary 
-                OurRectangle tempLeft = left;
-                left = right;   
-                right = tempLeft;       
-            } 
-
-            return (2 * (left.getWidth() + right.getWidth() - (Math.max(left.getX() + left.getWidth(), right.getX() + right.getWidth()) - Math.min(left.getX(), right.getX())))) + (2 * (left.getHeight() + right.getHeight() - (Math.max(left.getY() + left.getHeight(), right.getY() + right.getHeight()) - Math.min(left.getY(), right.getY()))));
+            return r1.perimeter() + r2.perimeter() - intersect.perimeter();
         }
     }
 }
