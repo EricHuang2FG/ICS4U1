@@ -1,12 +1,10 @@
-public class MyRectangleTest
-{
-  public static void main(String[] args)
-  {
+public class MyRectangleTest {
+  public static void main(String[] args) {
     OurRectangle r1 = new OurRectangle(1,2,8,6);
     OurRectangle r2 = new OurRectangle(6,4,7,3);
 
-    OurRectangle r3 = new OurRectangle(2, 0, 6, 3);
-    OurRectangle r4 = new OurRectangle(100, 100, 4, 3);
+    OurRectangle r3 = new OurRectangle(2, 0, 3, 4);
+    OurRectangle r4 = new OurRectangle(5, 1, 0, 2);
     
     System.out.println("toString Test: " + (r1.toString().equals("base: (1,2) w:8 h:6")? "Passed" : "Failed"));
 
@@ -19,6 +17,8 @@ public class MyRectangleTest
     System.out.println(OurRectangle.intersection(r4, r3).toString());
 
     System.out.println(OurRectangle.totalPerimeter(r3, r4));
+
+    System.out.println(r3.contains(r4));
     
   }
 }
