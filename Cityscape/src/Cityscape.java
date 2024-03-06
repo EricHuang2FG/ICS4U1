@@ -8,6 +8,7 @@ public class Cityscape extends JPanel {
     private int buildingWidth = 130;
     private int buildingSpacing = 30;
     private Building[] buildings = new Building[screenWidth / (5 + buildingWidth + buildingSpacing)];
+    private StarSky starSky = new StarSky(screenWidth, screenHeight);
 
     public Cityscape() {
         Random rand = new Random();
@@ -28,11 +29,9 @@ public class Cityscape extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(0, 0, screenWidth, screenHeight);
+        starSky.paint(g2d);
         for (Building b: buildings) {
             b.paint(g2d);
         }
