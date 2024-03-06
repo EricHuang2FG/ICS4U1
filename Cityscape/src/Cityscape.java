@@ -1,18 +1,22 @@
 import javax.swing.*;
 import java.awt.* ;
+import java.util.Random;
 public class Cityscape extends JPanel {
 
-    private Building[] buildings = new Building[6];
     private static int screenWidth = 1020;
     private static int screenHeight= 900;
+    private int buildingWidth = 130;
+    private int buildingSpacing = 30;
+    private Building[] buildings = new Building[screenWidth / (5 + buildingWidth + buildingSpacing)];
 
     public Cityscape() {
-        buildings[0] = new Building(5, 0, 100, 200);
-        buildings[1] = new Building(125, 0, 100, 100);
-        buildings[2] = new Building(250, 0, 100, 500);
-        buildings[3] = new Building(375, 0, 100, 400);
-        buildings[4] = new Building(500, 0, 100, 100);
-        buildings[5] = new Building(625, 0, 100, 300);
+        Random rand = new Random();
+        int x = buildingSpacing;
+        for (int i = 0; i < buildings.length; i++) {
+            int buildingHeight = rand.nextInt((600 - 200) + 1) + 200;
+            buildings[i] = new Building(x, 0, buildingWidth, buildingHeight);
+            x += buildingWidth + buildingSpacing;
+        }
     }
 
     public static void main(String[] args) {
@@ -27,7 +31,7 @@ public class Cityscape extends JPanel {
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.BLUE);
         g2d.fillRect(0, 0, screenWidth, screenHeight);
         for (Building b: buildings) {
             b.paint(g2d);
