@@ -5,7 +5,7 @@ public class StarSky {
 
     private int screenWidth, screenHeight;
     private int starWidth = 4;
-    private int[][] stars = new int[100][2];
+    private int[][] stars = new int[200][2];
 
     public StarSky(int screenWidth, int screenHeight) {
         this.screenWidth = screenWidth;
@@ -18,8 +18,9 @@ public class StarSky {
     }
 
     public void paint(Graphics2D g2d) {
+        Rectangle bounds = g2d.getClipBounds();
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, screenWidth, screenHeight);
+        g2d.fillRect(0, 0, bounds.width, bounds.height);
         g2d.setColor(Color.WHITE);
         for (int i = 0; i < stars.length; i++) {
             g2d.fillOval(stars[i][0], stars[i][1], starWidth, starWidth);
