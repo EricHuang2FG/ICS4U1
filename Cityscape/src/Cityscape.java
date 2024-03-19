@@ -4,26 +4,29 @@ import java.util.Random;
 
 public class Cityscape extends JPanel {
 
-    private static int screenWidth = 1020;
-    private static int screenHeight= 900;
+    private static final int screenWidth = 1020;
+    private static final int screenHeight= 900;
     private int buildingWidth = 130;
     private int buildingSpacing = 30;
+    private final int roadHeight = 60;
     private Building[] buildings = new Building[screenWidth / (5 + buildingWidth + buildingSpacing)];
     private StarSky starSky = new StarSky(screenWidth, screenHeight);
     private UFO[] ufoList = new UFO[5];
     private int maxBuildingHeight = 0;
     private int[] usedX = new int[5];
     private int[] usedY = new int[5];
+    private Car car1;
+    private final int carDistanceToTopOfRoad = 5;
 
     public Cityscape() {
         Random rand = new Random();
         int x = buildingSpacing;
         for (int i = 0; i < buildings.length; i++) {
-            int buildingHeight = rand.nextInt((550 - 200) + 1) + 200;
+            int buildingHeight = rand.nextInt((400 - 200) + 1) + 200;
             if (buildingHeight > this.maxBuildingHeight) {
                 this.maxBuildingHeight = buildingHeight;
             }
-            buildings[i] = new Building(x, 0, buildingWidth, buildingHeight);
+            buildings[i] = new Building(x, 0, buildingWidth, buildingHeight, roadHeight);
             x += buildingWidth + buildingSpacing;
         }
         for (int i = 0; i < ufoList.length; i++) {
@@ -35,8 +38,17 @@ public class Cityscape extends JPanel {
             }
             usedX[i] = ufoX;
             usedY[i] = ufoY;
-            ufoList[i] = new UFO(maxBuildingHeight, this, ufoX, ufoY);
+            ufoList[i] = new UFO(maxBuildingHeight, this, ufoX, ufoY, roadHeight);
         }
+        car1 = new Car(0, screenHeight - roadHeight - carDistanceToTopOfRoad, this);
+    }
+
+    public int getRoadHeight() {
+        return roadHeight;
+    }
+
+    public int getCarDistanceToTopOfRoad() {
+        return carDistanceToTopOfRoad;
     }
 
     private boolean invalidPosition(int x, int y) {
@@ -61,6 +73,10 @@ public class Cityscape extends JPanel {
         }
     }
 
+    private void moveCar() {
+        car1.move();
+    }
+
     public static void main(String[] args) throws InterruptedException {
         JFrame frame = new JFrame("Cityscape");
         Cityscape window = new Cityscape();
@@ -71,6 +87,7 @@ public class Cityscape extends JPanel {
 
         while (true) {
             window.moveUFO();
+            window.moveCar();
             window.repaint();
             Thread.sleep(10);
         }
@@ -84,8 +101,11 @@ public class Cityscape extends JPanel {
         for (Building b: buildings) {
             b.paint(g2d);
         }
+        g2d.setColor(new Color(82, 76, 76, 255));
+        g2d.fillRect(0, this.getHeight() - roadHeight, this.getWidth(), roadHeight);
         for (UFO ufo: ufoList) {
             ufo.paint(g2d);
         }
+        car1.paint(g2d);
     }
 }

@@ -5,11 +5,11 @@ public class Window {
     private int x, y, length;
     private boolean lightsOn;
 
-    public Window(int x, int y, int length) {
+    public Window(int x, int y, int length, int offGround) {
         Random rand = new Random();
         lightsOn = rand.nextInt((2 - 1) + 1) + 1 == 1;
         this.x = x;
-        this.y = y;
+        this.y = y + offGround;
         this.length = length;
     }
 

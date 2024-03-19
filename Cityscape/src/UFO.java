@@ -1,21 +1,20 @@
 import java.awt.*;
-import javax.swing.*;
 
 public class UFO {
 
     private int x, y;
     private int vx = 2, vy = 1;
 //    private int vx = 200, vy = 100;
-    private static final int bodyWidth = 125, bodyHeight = 50;
+    private static final int bodyWidth = 120, bodyHeight = 50;
     private static final int cockpitWidth = 40, cockpitHeight = 33;
     private static final int lightRadius = 15;
     private int lowerBound;
     private int coolDown = 0;
     private Cityscape screen;
 
-    public UFO (int tallestBuildingHeight, Cityscape screen, int x, int y) {
+    public UFO (int tallestBuildingHeight, Cityscape screen, int x, int y, int roadHeight) {
         this.screen = screen;
-        this.lowerBound = tallestBuildingHeight + 30;
+        this.lowerBound = tallestBuildingHeight + 30 + roadHeight;
         this.x = x;
         this.y = y;
     }
