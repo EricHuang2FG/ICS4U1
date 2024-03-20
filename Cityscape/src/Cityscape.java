@@ -18,7 +18,7 @@ public class Cityscape extends JPanel {
     private int[] usedY = new int[5];
     private Car car1;
     private PlayerUFO player;
-    private final int carDistanceToTopOfRoad = 5;
+    private final int carDistanceToTopOfRoad = -4;
 
     public Cityscape() {
         Random rand = new Random();
@@ -39,7 +39,7 @@ public class Cityscape extends JPanel {
                 ufoY = rand.nextInt((screenHeight - maxBuildingHeight - 50 - UFO.getBodyHeight()));
             }
             if (i == ufoList.length) {
-                player = new PlayerUFO(ufoX, ufoY, this);
+                player = new PlayerUFO(ufoX, ufoY, this, roadHeight);
             } else {
                 usedX[i] = ufoX;
                 usedY[i] = ufoY;

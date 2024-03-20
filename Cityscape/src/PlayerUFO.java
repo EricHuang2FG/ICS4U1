@@ -4,8 +4,8 @@ import java.awt.event.*;
 public class PlayerUFO extends UFO {
 
     private boolean goRight = false, goLeft = false, goUp = false, goDown = false;
-    public PlayerUFO(int x, int y, Cityscape screen) {
-        super(x, y, screen);
+    public PlayerUFO(int x, int y, Cityscape screen, int roadHeight) {
+        super(x, y, screen, roadHeight);
         bodyColour = new Color(232, 255, 243);
         cockpitColour = new Color(255, 143, 52);
         lightColour = new Color(172, 255, 7);
@@ -14,7 +14,7 @@ public class PlayerUFO extends UFO {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             goLeft = true;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -25,6 +25,9 @@ public class PlayerUFO extends UFO {
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             goDown = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+            tractorBeam = true;
         }
     }
 
@@ -45,21 +48,24 @@ public class PlayerUFO extends UFO {
             goDown = false;
             vy = 0;
         }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            tractorBeam = false;
+        }
     }
 
     public void move() {
         screenCollision();
         if (goLeft) {
-            vx = -4;
+            vx = -5;
         }
         if (goRight) {
-            vx = 4;
+            vx = 5;
         }
         if (goUp) {
-            vy = -4;
+            vy = -5;
         }
         if (goDown) {
-            vy = 4;
+            vy = 5;
         }
         x += vx;
         y += vy;
@@ -72,8 +78,8 @@ public class PlayerUFO extends UFO {
         if (y <= 0) {
             y = 0;
         }
-        if (y + bodyHeight >= screen.getHeight()) {
-            y = screen.getHeight() - bodyHeight;
+        if (y + bodyHeight + roadHeight >= screen.getHeight()) {
+            y = screen.getHeight() - bodyHeight - roadHeight;
         }
     }
 }
