@@ -8,7 +8,7 @@ public class Car {
     private BufferedImage car = null;
     private double scale = 0.02;
     private int x, y;
-    private int vx = 6;
+    private int vx = 3;
     private int width, height;
     private Cityscape screen;
 
@@ -47,5 +47,4 @@ public class Car {
     public void paint(Graphics2D g2d) {
         g2d.drawImage(car, x + Math.abs(width), y, width, height, null);
     }
-
 }

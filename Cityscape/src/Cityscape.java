@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.* ;
 import java.util.Random;
+import java.awt.event.*;
 
 public class Cityscape extends JPanel {
 
@@ -16,6 +17,7 @@ public class Cityscape extends JPanel {
     private int[] usedX = new int[5];
     private int[] usedY = new int[5];
     private Car car1;
+    private PlayerUFO player;
     private final int carDistanceToTopOfRoad = 5;
 
     public Cityscape() {
@@ -29,18 +31,39 @@ public class Cityscape extends JPanel {
             buildings[i] = new Building(x, 0, buildingWidth, buildingHeight, roadHeight);
             x += buildingWidth + buildingSpacing;
         }
-        for (int i = 0; i < ufoList.length; i++) {
+        for (int i = 0; i <= ufoList.length; i++) {
             int ufoX = rand.nextInt(((screenWidth - UFO.getBodyWidth())) + 1);
             int ufoY = rand.nextInt((screenHeight - maxBuildingHeight - 50 - UFO.getBodyHeight()));
             while (invalidPosition(ufoX, ufoY)) {
                 ufoX = rand.nextInt(((screenWidth - UFO.getBodyWidth())) + 1);
                 ufoY = rand.nextInt((screenHeight - maxBuildingHeight - 50 - UFO.getBodyHeight()));
             }
-            usedX[i] = ufoX;
-            usedY[i] = ufoY;
-            ufoList[i] = new UFO(maxBuildingHeight, this, ufoX, ufoY, roadHeight);
+            if (i == ufoList.length) {
+                player = new PlayerUFO(ufoX, ufoY, this);
+            } else {
+                usedX[i] = ufoX;
+                usedY[i] = ufoY;
+                ufoList[i] = new UFO(maxBuildingHeight, this, ufoX, ufoY, roadHeight);
+            }
         }
         car1 = new Car(0, screenHeight - roadHeight - carDistanceToTopOfRoad, this);
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                player.keyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                player.keyReleased(e);
+            }
+        });
+        setFocusable(true);
     }
 
     public int getRoadHeight() {
@@ -71,6 +94,7 @@ public class Cityscape extends JPanel {
         for (UFO ufo: ufoList) {
             ufo.move();
         }
+        player.move();
     }
 
     private void moveCar() {
@@ -107,5 +131,6 @@ public class Cityscape extends JPanel {
             ufo.paint(g2d);
         }
         car1.paint(g2d);
+        player.paint(g2d);
     }
 }

@@ -2,21 +2,29 @@ import java.awt.*;
 
 public class UFO {
 
-    private int x, y;
-    private int vx = 2, vy = 1;
-//    private int vx = 200, vy = 100;
-    private static final int bodyWidth = 120, bodyHeight = 50;
-    private static final int cockpitWidth = 40, cockpitHeight = 33;
-    private static final int lightRadius = 15;
+    protected int x, y;
+    protected int vx = 2, vy = 1;
+    protected static final int bodyWidth = 120, bodyHeight = 50;
+    protected static final int cockpitWidth = 40, cockpitHeight = 33;
+    protected static final int lightRadius = 15;
     private int lowerBound;
-    private int coolDown = 0;
-    private Cityscape screen;
+    protected int coolDown = 0;
+    protected Cityscape screen;
+    protected Color bodyColour = Color.BLUE;
+    protected Color cockpitColour = Color.RED;
+    protected Color lightColour = Color.YELLOW;
 
-    public UFO (int tallestBuildingHeight, Cityscape screen, int x, int y, int roadHeight) {
+    public UFO(int tallestBuildingHeight, Cityscape screen, int x, int y, int roadHeight) {
         this.screen = screen;
         this.lowerBound = tallestBuildingHeight + 30 + roadHeight;
         this.x = x;
         this.y = y;
+    }
+
+    public UFO(int x,int y, Cityscape screen) {
+        this.x = x;
+        this.y = y;
+        this.screen = screen;
     }
 
     public static int getBodyHeight() {
@@ -58,13 +66,13 @@ public class UFO {
     }
 
     public void paint(Graphics2D g2d) {
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(bodyColour);
         g2d.fillOval(x, y, bodyWidth, bodyHeight);
-        g2d.setColor(Color.RED);
+        g2d.setColor(cockpitColour);
         g2d.fillOval(x + 33, y , cockpitWidth, cockpitHeight);
         coolDown++;
         if (coolDown >= 50 && coolDown <= 100) {
-            g2d.setColor(Color.YELLOW);
+            g2d.setColor(lightColour);
             g2d.fillOval(x + 10, y + 17, lightRadius, lightRadius);
             g2d.fillOval(x + bodyWidth - 30, y + 17, lightRadius, lightRadius);
         } else if (coolDown > 100) {
