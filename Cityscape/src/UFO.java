@@ -15,7 +15,8 @@ public class UFO {
     protected Color lightColour = Color.YELLOW;
     protected int roadHeight;
     protected boolean tractorBeam = false;
-    private final int beamWidth = 75, beamHeight = 800;
+    protected final int beamWidth = 75, beamHeight = 800;
+
 
     public UFO(int tallestBuildingHeight, Cityscape screen, int x, int y, int roadHeight) {
         this.screen = screen;
@@ -69,10 +70,18 @@ public class UFO {
         y += vy;
     }
 
+    protected int getBeamX() {
+        return x + (bodyWidth / 2) - (beamWidth / 2);
+    }
+
+    protected int getBeamY() {
+        return y + bodyHeight - 5;
+    }
+
     public void paint(Graphics2D g2d) {
         if (tractorBeam) {
             g2d.setColor(new Color(1, 247, 255, 205));
-            g2d.fillRect(x + (bodyWidth / 2) - (beamWidth / 2), y + bodyHeight - 5, beamWidth, beamHeight);
+            g2d.fillRect(getBeamX(), getBeamY(), beamWidth, beamHeight);
         }
         g2d.setColor(bodyColour);
         g2d.fillOval(x, y, bodyWidth, bodyHeight);

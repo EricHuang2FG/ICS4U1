@@ -13,6 +13,10 @@ public class PlayerUFO extends UFO {
         vy = 0;
     }
 
+    public int getVx() {
+        return vx;
+    }
+
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             goLeft = true;
@@ -50,6 +54,22 @@ public class PlayerUFO extends UFO {
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             tractorBeam = false;
+        }
+    }
+
+    private boolean carTouchesTractorBeam(Car car) {
+        return (((car.getX() >= getBeamX() && car.getX() <= getBeamX() + beamWidth) || (getBeamX() >= car.getX() && getBeamX() <= car.getX() + car.getWidth())) && ((car.getY() >= getBeamY() && car.getY() <= getBeamY() + beamHeight) || (getBeamY() >= car.getY() && getBeamY() <= car.getY() + car.getHeight())));
+    }
+
+    public void abduct(Car car) {
+        if (tractorBeam) {
+            if (carTouchesTractorBeam(car)) {
+                car.setAbductCar(true);
+            } else {
+                car.setAbductCar(false);
+            }
+        } else {
+            car.setAbductCar(false);
         }
     }
 

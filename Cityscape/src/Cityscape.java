@@ -95,10 +95,11 @@ public class Cityscape extends JPanel {
             ufo.move();
         }
         player.move();
+        player.abduct(car1);
     }
 
     private void moveCar() {
-        car1.move();
+        car1.move(player);
     }
 
     public static void main(String[] args) throws InterruptedException {
