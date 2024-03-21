@@ -58,7 +58,8 @@ public class PlayerUFO extends UFO {
     }
 
     private boolean carTouchesTractorBeam(Car car) {
-        return (((car.getX() >= getBeamX() && car.getX() <= getBeamX() + beamWidth) || (getBeamX() >= car.getX() && getBeamX() <= car.getX() + car.getWidth())) && ((car.getY() >= getBeamY() && car.getY() <= getBeamY() + beamHeight) || (getBeamY() >= car.getY() && getBeamY() <= car.getY() + car.getHeight())));
+        int reduce = 0;
+        return (((car.getX() + reduce >= getBeamX() && car.getX() <= getBeamX() + beamWidth - reduce) || (getBeamX() + reduce >= car.getX() && getBeamX() + reduce <= car.getX() + car.getWidth())) && ((car.getY() >= getBeamY() && car.getY() <= getBeamY() + beamHeight) || (getBeamY() >= car.getY() && getBeamY() <= car.getY() + car.getHeight())));
     }
 
     public void abduct(Car car) {

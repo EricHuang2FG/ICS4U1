@@ -13,6 +13,7 @@ public class Car {
     private Cityscape screen;
     private boolean abductCar = false;
     private int counter = 0;
+    private boolean paintCar = true;
 
     public Car(int x, int y, Cityscape screen) {
         this.y = y;
@@ -75,6 +76,9 @@ public class Car {
     }
 
     public void move(PlayerUFO player) {
+        if (y <= player.getBeamY()) {
+            paintCar = false;
+        }
         if (counter == 0) {
             y = screen.getHeight() - screen.getRoadHeight() - screen.getCarDistanceToTopOfRoad();
             counter = 1;
@@ -83,7 +87,7 @@ public class Car {
         if (abductCar) {
             abductCar(player);
         } else {
-            if (y != screen.getHeight() - screen.getRoadHeight() - screen.getCarDistanceToTopOfRoad()) {
+            if (y <= screen.getHeight() - screen.getRoadHeight() - screen.getCarDistanceToTopOfRoad()) {
                 fall();
             } else {
                 if (width < 0) {
@@ -99,14 +103,8 @@ public class Car {
     }
 
     public void paint(Graphics2D g2d) {
-//        g2d.drawImage(car, x + Math.abs(width), y, width, height, null);
-//        g2d.setColor(Color.RED);
-//        if (width > 0) {
-//            g2d.drawRect(x, y, width, height);
-//        } else {
-//            g2d.drawRect(x + width, y, Math.abs(width), height);
-//        }
-        g2d.drawImage(car, x, y, width, height, null);
-
+        if (paintCar) {
+            g2d.drawImage(car, x, y, width, height, null);
+        }
     }
 }
