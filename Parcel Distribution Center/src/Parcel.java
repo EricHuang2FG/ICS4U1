@@ -64,10 +64,6 @@ public class Parcel {
         isSorted = val;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setVx(int speed) {
         vx = speed;
     }
