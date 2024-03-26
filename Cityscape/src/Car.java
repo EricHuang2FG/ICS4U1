@@ -19,7 +19,7 @@ public class Car {
         this.y = y;
         this.screen = screen;
         try {
-            car = ImageIO.read(new File("res\\car.png"));
+            car = ImageIO.read(new File("../res/car.png"));
         } catch (IOException e) {
             System.out.println("File loading error " + e);
         }

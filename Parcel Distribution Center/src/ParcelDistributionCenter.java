@@ -10,6 +10,7 @@ public class ParcelDistributionCenter extends JPanel {
     private Parcel[] parcels = new Parcel[20];
     private final int parcelSpacing = 200;
     private final int bottomOfParcel = screenHeight / 2;
+    private Scanner scanner = new Scanner();
 
     public ParcelDistributionCenter() {
         Random rand = new Random();
@@ -35,10 +36,20 @@ public class ParcelDistributionCenter extends JPanel {
         }
     }
 
+    public static int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public static int getScreenWidth() {
+        return screenWidth;
+    }
+
     private void moveParcel() {
         for (Parcel parcel: parcels) {
             parcel.move();
         }
+        scanner.parcelCollision(parcels);
+        scanner.sortParcel(parcels);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -63,5 +74,6 @@ public class ParcelDistributionCenter extends JPanel {
         for (Parcel parcel: parcels) {
             parcel.paint(g2d);
         }
+        scanner.paint(g2d);
     }
 }

@@ -1,12 +1,9 @@
 import java.awt.*;
 
-public class Parcel {
-
-    private String type;
-    private Color colour;
-    private final int length, width, height;
-    private int x, y;
-    private int vx = 5, vy = 0;
+public class Scanner {
+    
+    private final int length = 140, height = 150, width = 40;
+    private final int x = ParcelDistributionCenter.getScreenWidth() / 2 - (length / 2), y = ParcelDistributionCenter.getScreenHeight() / 2 + (height / 2);
     private final int nPoints = 5;
     private int[] polyFrontX = new int[nPoints];
     private int[] polyFrontY = new int[nPoints];
@@ -14,77 +11,44 @@ public class Parcel {
     private int[] polySideY = new int[nPoints];
     private int[] polyTopX = new int[nPoints];
     private int[] polyTopY = new int[nPoints];
-    private double diagnol;
-    private int leftEdge, topEdge;
-    private int totalLength, totalHeight;
-    private boolean isSorted = false;
+    private double diagnol = (width * Math.sqrt(2)) / 2;
+    private int leftEdge = (int) (x - diagnol);
+    private int topEdge = (int) (y - diagnol - height);
+    private int totalLength = (int) (length + diagnol);
+    private int totalHeight = (int) (height + diagnol);
+    private boolean turnOnLight = false;
 
-    public Parcel(String type, int length, int width, int height, int x, int y) {
-        if (type.equals("international")) {
-            this.colour = Color.BLUE;
-        } else if (type.equals("domestic")) {
-            this.colour = Color.GREEN;
-        } else if (type.equals("unknown")) {
-            this.colour = Color.YELLOW;
+    public Scanner() {
+
+    }
+
+    public void parcelCollision(Parcel[] parcels) {
+        boolean isBroken = false;
+        for (Parcel parcel: parcels) {
+            if ((parcel.getX() + parcel.getLength() >= x && parcel.getX() <= x + totalLength) && (parcel.getY() <= y && parcel.getY() + parcel.getHeight() >= topEdge)) {
+                turnOnLight = true;
+                isBroken = true;
+                break;
+            } 
         }
-        this.type = type;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
-        this.diagnol = (width * Math.sqrt(2)) / 2;
-        this.leftEdge = (int) (x - diagnol);
-        this.topEdge = (int) (y - diagnol - height);
-        this.totalLength = (int) (length + diagnol);
-        this.totalHeight = (int) (height + diagnol);
+        if (!isBroken) {
+            turnOnLight = false;
+        }
     }
 
-    public int getX() {
-        return leftEdge;
-    }
-
-    public int getY() {
-        return topEdge;
-    }
-
-    public int getLength() {
-        return totalLength;
-    }
-
-    public int getHeight() {
-        return totalHeight;
-    }
-
-    public boolean getSortSituation() {
-        return isSorted;
-    }
-
-    public void setSorted(boolean val) {
-        isSorted = val;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setVx(int speed) {
-        vx = speed;
-    }
-
-    public void setVy(int speed) {
-        vy = speed;
-    }
-
-    public boolean isType(String type) {
-        return (type.equals(this.type));
-    }
-
-    public void move() {
-        x += vx;
-        y += vy;
-        leftEdge = (int) (x - diagnol);
-        topEdge = (int) (y - diagnol - height);
+    public void sortParcel(Parcel[] parcels) {
+        for (Parcel parcel: parcels) {
+            if (!parcel.getSortSituation() && parcel.getX() >= x + 25) {
+                if (parcel.isType("international")) {
+                    parcel.setVx(0);
+                    parcel.setVy(-5);
+                } else if (parcel.isType("unknown")) {
+                    parcel.setVx(0);
+                    parcel.setVy(5);
+                }
+                parcel.setSorted(true);
+            }
+        }
     }
 
     public void paint(Graphics2D g2d) {
@@ -121,7 +85,7 @@ public class Parcel {
         polyTopY[3] = y - height;
         polyTopY[4] = (int) (y - height - diagnol);
 
-        g2d.setColor(colour);
+        g2d.setColor(Color.GRAY);
         Polygon polyFront = new Polygon(polyFrontX, polyFrontY, nPoints);
         Polygon polySide = new Polygon(polySideX, polySideY, nPoints);
         Polygon polyTop = new Polygon(polyTopX, polyTopY, nPoints);
@@ -134,5 +98,9 @@ public class Parcel {
         g2d.drawPolygon(polySide);
         g2d.drawPolygon(polyTop);
         g2d.setStroke(new BasicStroke(1));
+        if (turnOnLight) {
+            g2d.setColor(Color.RED);
+            g2d.fillOval(x + 25, y - 80, 30, 30);
+        }
     }
 }
