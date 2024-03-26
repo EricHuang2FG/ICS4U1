@@ -6,7 +6,7 @@ public class Parcel {
     private Color colour;
     private final int length, width, height;
     private int x, y;
-    private int vx = 5, vy = 0;
+    private int vx = 4, vy = 0;
     private final int nPoints = 5;
     private int[] polyFrontX = new int[nPoints];
     private int[] polyFrontY = new int[nPoints];
