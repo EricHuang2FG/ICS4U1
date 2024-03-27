@@ -7,8 +7,10 @@ public class ConveyorBelt {
     protected int length, height;
     protected Scanner scanner;
     protected boolean move = false;
+    protected boolean stopped = false;
     protected Color lightColor = Color.RED;
     protected int lightRadius = 20;
+    protected BeltLine[] beltLines = new BeltLine[10];
 
     public ConveyorBelt(String orientation, Scanner scanner) {
         this.scanner = scanner;
@@ -36,10 +38,21 @@ public class ConveyorBelt {
         }
     }
 
+    public String getOrientation() {
+        return orientation;
+    }
+
     public void parcelCollision(Parcel[] parcels) {
         boolean isBroken = false;
         for (Parcel parcel: parcels) {
-            if (orientation.equals("left") || orientation.equals("right")) {
+            if (orientation.equals("left")) {
+                if (!stopped) {
+                    lightColor = Color.GREEN;
+                    move = true;
+                    isBroken = true;
+                    break;
+                }
+            } else if (orientation.equals("right")) {
                 if ((parcel.getX() + parcel.getLength() >= x) && (parcel.getX() <= x + length)) {
                     lightColor = Color.GREEN;
                     move = true;
@@ -61,10 +74,20 @@ public class ConveyorBelt {
         }
     }
 
+
     public void paint(Graphics2D g2d) {
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(new Color(168, 178, 187));
         g2d.fillRect(x, y, length, height);
         g2d.setColor(lightColor);
         g2d.fillOval(x + 20, y + 20, lightRadius, lightRadius);
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(2));
+        if (orientation.equals("left") || orientation.equals("right")) {
+            g2d.drawLine(x, y, (int) (x + length - scanner.getDiagnol()), y);
+            g2d.drawLine(x, y + height, x + length, y + height);
+        } else if (orientation.equals("top") || orientation.equals("bottom")) {
+            g2d.drawLine(x, y, x, y + height);
+            g2d.drawLine(x + length, y, x + length, y + height);
+        }
     }
 }

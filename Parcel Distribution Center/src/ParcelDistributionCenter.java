@@ -39,6 +39,23 @@ public class ParcelDistributionCenter extends JPanel {
             parcels[i] = new Parcel(type, length, width, height, x, bottomOfParcel);
             x -= parcelSpacing;
         }
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                leftBelt.keyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        setFocusable(true);
     }
 
     public static int getScreenHeight() {
@@ -50,6 +67,7 @@ public class ParcelDistributionCenter extends JPanel {
     }
 
     private void moveParcel() {
+        leftBelt.operate(parcels);
         for (Parcel parcel: parcels) {
             parcel.move();
         }
@@ -75,10 +93,16 @@ public class ParcelDistributionCenter extends JPanel {
         }
     }
 
+    private void drawBackground(Graphics2D g2d) {
+        g2d.setColor(new Color(255, 255, 190));
+        g2d.fillRect(0, 0, screenWidth, screenHeight);
+    }
+
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        drawBackground(g2d);
         for (ConveyorBelt conveyorBelt: conveyorBelts) {
             conveyorBelt.paint(g2d);
         }

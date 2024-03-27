@@ -36,12 +36,12 @@ public class Scanner {
 
     public Scanner() {
         try {
-            // plane = ImageIO.read(new File("res\\plane.png"));
-            // truck = ImageIO.read(new File("res\\truck.png"));
-            // questionMark = ImageIO.read(new File("res\\questionMark.png"));
-            plane = ImageIO.read(new File("../res/plane.png"));
-            truck = ImageIO.read(new File("../res/truck.png"));
-            questionMark = ImageIO.read(new File("../res/questionMark.png"));
+             plane = ImageIO.read(new File("res\\plane.png"));
+             truck = ImageIO.read(new File("res\\truck.png"));
+             questionMark = ImageIO.read(new File("res\\questionMark.png"));
+//            plane = ImageIO.read(new File("../res/plane.png"));
+//            truck = ImageIO.read(new File("../res/truck.png"));
+//            questionMark = ImageIO.read(new File("../res/questionMark.png"));
         } catch (IOException e) {
             System.out.println("File loading error \n" + e);
         }
