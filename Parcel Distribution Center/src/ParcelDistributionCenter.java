@@ -9,8 +9,13 @@ public class ParcelDistributionCenter extends JPanel {
     private static final int screenHeight = 640;
     private Parcel[] parcels = new Parcel[20];
     private final int parcelSpacing = 200;
-    private final int bottomOfParcel = screenHeight / 2;
+    private final int bottomOfParcel = (screenHeight / 2) + 30;
     private Scanner scanner = new Scanner();
+    private ControlledConveyorBelt leftBelt = new ControlledConveyorBelt("left", scanner);;
+    private ConveyorBelt rightBelt = new ConveyorBelt("right", scanner);
+    private ConveyorBelt topBelt = new ConveyorBelt("top", scanner);
+    private ConveyorBelt bottomBelt = new ConveyorBelt("bottom", scanner);
+    private ConveyorBelt[] conveyorBelts= {leftBelt, rightBelt, topBelt, bottomBelt};
 
     public ParcelDistributionCenter() {
         Random rand = new Random();
@@ -50,6 +55,9 @@ public class ParcelDistributionCenter extends JPanel {
         }
         scanner.parcelCollision(parcels);
         scanner.sortParcel(parcels);
+        for (ConveyorBelt conveyorBelt: conveyorBelts) {
+            conveyorBelt.parcelCollision(parcels);
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -71,6 +79,9 @@ public class ParcelDistributionCenter extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        for (ConveyorBelt conveyorBelt: conveyorBelts) {
+            conveyorBelt.paint(g2d);
+        }
         scanner.paint(g2d, parcels);
     }
 }

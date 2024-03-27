@@ -6,8 +6,8 @@ import java.sql.SQLOutput;
 
 public class Scanner {
     
-    private final int length = 140, height = 150, width = 40;
-    private final int x = ParcelDistributionCenter.getScreenWidth() / 2 - (length / 2), y = ParcelDistributionCenter.getScreenHeight() / 2 + (height / 2);
+    private final int length = 170, height = 150, width = 80;
+    private final int x = ParcelDistributionCenter.getScreenWidth() / 2 - (length / 2), y = ParcelDistributionCenter.getScreenHeight() / 2 + (height / 2) - 30;
     private final int nPoints = 5;
     private int[] polyFrontX = new int[nPoints];
     private int[] polyFrontY = new int[nPoints];
@@ -21,6 +21,7 @@ public class Scanner {
     private int totalLength = (int) (length + diagnol);
     private int totalHeight = (int) (height + diagnol);
     private boolean turnOnLight = false;
+    private int lightRadius = 30;
     private BufferedImage plane = null;
     private final double planeScale = 0.6;
     private int scaledPlaneWidth, scaledPlaneHeight;
@@ -35,9 +36,12 @@ public class Scanner {
 
     public Scanner() {
         try {
-            plane = ImageIO.read(new File("res\\plane.png"));
-            truck = ImageIO.read(new File("res\\truck.png"));
-            questionMark = ImageIO.read(new File("res\\questionMark.png"));
+            // plane = ImageIO.read(new File("res\\plane.png"));
+            // truck = ImageIO.read(new File("res\\truck.png"));
+            // questionMark = ImageIO.read(new File("res\\questionMark.png"));
+            plane = ImageIO.read(new File("../res/plane.png"));
+            truck = ImageIO.read(new File("../res/truck.png"));
+            questionMark = ImageIO.read(new File("../res/questionMark.png"));
         } catch (IOException e) {
             System.out.println("File loading error \n" + e);
         }
@@ -47,6 +51,26 @@ public class Scanner {
         this.scaledTruckHeight = (int) (truck.getHeight() * truckScale);
         this.scaledQuestionMarkWidth = (int) (questionMark.getWidth() * questionMarkScale);
         this.scaledQuestionMarkHeight = (int) (questionMark.getHeight() * questionMarkScale);
+    }
+
+    public double getDiagnol() {
+        return diagnol;
+    }
+
+    public int getX() {
+        return leftEdge;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getLength() {
+        return totalLength;
+    }
+
+    public int getHeight() {
+        return totalHeight;
     }
 
     public void parcelCollision(Parcel[] parcels) {
@@ -78,7 +102,7 @@ public class Scanner {
 
     public void sortParcel(Parcel[] parcels) {
         for (Parcel parcel: parcels) {
-            if (!parcel.getSortSituation() && parcel.getX() >= x + 25) {
+            if (!parcel.getSortSituation() && parcel.getX() >= x + 20) {
                 if (parcel.isType("international")) {
                     parcel.setVx(0);
                     parcel.setVy(-4);
@@ -147,7 +171,7 @@ public class Scanner {
         g2d.setStroke(new BasicStroke(1));
         if (turnOnLight) {
             g2d.setColor(Color.RED);
-            g2d.fillOval(x + 25, y - 80, 30, 30);
+            g2d.fillOval(x + 25, y - 70, lightRadius, lightRadius);
         }
         if (displayPlane) {
             g2d.drawImage(plane, imageX, imageY, scaledPlaneWidth, scaledPlaneHeight, null);
