@@ -12,18 +12,19 @@ public class ConveyorBelt {
     protected boolean stopped = false;
     protected Color lightColor = Color.RED;
     protected int lightRadius = 20;
-    protected final Color beltColourA = new Color(198, 187, 187);
-    protected final Color beltColourB = new Color(209, 204, 204);
+    protected Color beltColourA = new Color(198, 187, 187);
+    protected Color beltColourB = new Color(209, 204, 204);
     protected int beltThickness = 40;
-    protected static final int numBelts = 30;
-    protected BeltLine[] beltLines = new BeltLine[numBelts];
+    protected static final int NUM_BELTS = 30;
+    protected BeltLine[] beltLines = new BeltLine[NUM_BELTS];
+    protected BeltLine[] backwardBelts = new BeltLine[NUM_BELTS];
 
     public ConveyorBelt(String orientation, Scanner scanner) {
         this.scanner = scanner;
         this.orientation = orientation;
         if (orientation.equals("left")) {
-            this.length = (int) (scanner.getX() + scanner.getDiagnol());
-            this.height = (int) (scanner.getDiagnol());
+            this.length = (int) (scanner.getX() + scanner.getDiagonal());
+            this.height = (int) (scanner.getDiagonal());
             this.x = 0;
             this.y = scanner.getY() - this.height;
             int initialX = this.x + this.length;
@@ -35,9 +36,14 @@ public class ConveyorBelt {
                 }
                 initialX -= beltThickness;
             }
+            initialX = this.x;
+            for (int i = 0; i < backwardBelts.length; i++) {
+                backwardBelts[i] = new BeltLine(initialX, this.y + this.height + this.sideHeight, beltThickness, "back", beltColourA, this);
+                initialX += beltThickness;
+            }
         } else if (orientation.equals("right")) {
-            this.length = (int) (ParcelDistributionCenter.getScreenWidth() - (scanner.getX() + scanner.getLength() - scanner.getDiagnol()));
-            this.height = height = (int) (scanner.getDiagnol());
+            this.length = (int) (ParcelDistributionCenter.getScreenWidth() - (scanner.getX() + scanner.getLength() - scanner.getDiagonal()));
+            this.height = height = (int) (scanner.getDiagonal());
             this.x = scanner.getX() + scanner.getLength();
             this.y = scanner.getY() - this.height;
             int initialX = this.x + this.length;
@@ -49,24 +55,34 @@ public class ConveyorBelt {
                 }
                 initialX -= beltThickness;
             }
+            initialX = this.x;
+            for (int i = 0; i < backwardBelts.length; i++) {
+                backwardBelts[i] = new BeltLine(initialX, this.y + this.height + this.sideHeight, beltThickness, "back", beltColourA, this);
+                initialX += beltThickness;
+            }
         } else if (orientation.equals("top")) {
             this.length = scanner.getLength() - 90;
             this.height = scanner.getY() - scanner.getHeight();
             this.x = scanner.getX() + 30;
             this.y = 0;
-            int initialY = this.y;
+            int initialY = this.y - beltThickness;
             for (int i = 0; i < beltLines.length; i++) {
                 if (i % 2 == 0) {
                     beltLines[i] = new BeltLine(this.x + (this.length / 2), initialY, beltThickness, "up", beltColourA, this); // (x, y) is the tip
                 } else {
-                    beltLines[i] = new BeltLine(this.x + (this.length / 2), initialY, beltThickness, "up", beltColourA, this);
+                    beltLines[i] = new BeltLine(this.x + (this.length / 2), initialY, beltThickness, "up", beltColourB, this);
                 }
                 initialY += beltThickness;
+            }
+            initialY = this.y + this.height;
+            for (int i = 0; i < backwardBelts.length; i++) {
+                backwardBelts[i] = new BeltLine(this.x - (this.sideHeight / 2), initialY, beltThickness, "up back", beltColourA, this);
+                initialY -= beltThickness;
             }
         } else if (orientation.equals("bottom")) {
             this.length = scanner.getLength() - 90;
             this.height = ParcelDistributionCenter.getScreenHeight() - scanner.getY();
-            this.x = (int) (scanner.getX() + scanner.getDiagnol());
+            this.x = (int) (scanner.getX() + scanner.getDiagonal());
             this.y = scanner.getY();
             int initialY = this.y + this.height;
             for (int i = 0; i < beltLines.length; i++) {
@@ -77,15 +93,16 @@ public class ConveyorBelt {
                 }
                 initialY -= beltThickness;
             }
+            initialY = this.y;
+            for (int i = 0; i < backwardBelts.length; i++) {
+                backwardBelts[i] = new BeltLine(this.x - (this.sideHeight / 2), initialY, beltThickness, "down back", beltColourA, this);
+                initialY += beltThickness;
+            }
         }
     }
 
     public static int getNumBelts() {
-        return numBelts;
-    }
-
-    public String getOrientation() {
-        return orientation;
+        return NUM_BELTS;
     }
 
     public int getLength() {
@@ -141,6 +158,9 @@ public class ConveyorBelt {
             for (BeltLine beltLine: beltLines) {
                 beltLine.move();
             }
+            for (BeltLine backwardBeltLine: backwardBelts) {
+                backwardBeltLine.move();
+            }
         }
     }
 
@@ -150,7 +170,7 @@ public class ConveyorBelt {
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
         if (orientation.equals("left") || orientation.equals("right")) {
-            g2d.drawLine(x, y, (int) (x + length - scanner.getDiagnol()), y);
+            g2d.drawLine(x, y, (int) (x + length - scanner.getDiagonal()), y);
             g2d.drawLine(x, y + height, x + length, y + height);
             g2d.setColor(colour);
             if (orientation.equals("left")) {
@@ -178,9 +198,18 @@ public class ConveyorBelt {
         } else if (orientation.equals("top") || orientation.equals("bottom")) {
             g2d.drawLine(x, y, x, y + height);
             g2d.drawLine(x + length, y, x + length, y + height);
+            g2d.setColor(colour);
+            g2d.fillRect(x - (sideHeight / 2), y, (sideHeight / 2), height);
+            g2d.setStroke(new BasicStroke(2));
+            g2d.setColor(Color.BLACK);
+            g2d.drawLine(x - (sideHeight / 2), y, x - (sideHeight / 2), y + height);
+            g2d.setStroke(new BasicStroke(1));
         }
         for (BeltLine beltLine: beltLines) {
             beltLine.paint(g2d);
+        }
+        for (BeltLine backwardBelts: backwardBelts) {
+            backwardBelts.paint(g2d);
         }
         int[] lightDimensions = {x + 20, y + 25, lightRadius};
         g2d.setColor(lightColor);

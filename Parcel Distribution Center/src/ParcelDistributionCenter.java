@@ -5,17 +5,17 @@ import java.awt.event.*;
 
 public class ParcelDistributionCenter extends JPanel {
 
-    private static final int screenWidth = 1090;
-    private static final int screenHeight = 640;
+    private static final int SCREEN_WIDTH = 1020;
+    private static final int SCREEN_HEIGHT = 640;
     private Parcel[] parcels = new Parcel[20];
-    private final int parcelSpacing = 200;
-    private final int bottomOfParcel = (screenHeight / 2) + 30;
+    private final int PARCEL_SPACING = 250;
+    private int bottomOfParcel = (SCREEN_HEIGHT / 2) + 30;
     private Scanner scanner = new Scanner();
     private ControlledConveyorBelt leftBelt = new ControlledConveyorBelt("left", scanner);;
     private ConveyorBelt rightBelt = new ConveyorBelt("right", scanner);
     private ConveyorBelt topBelt = new ConveyorBelt("top", scanner);
     private ConveyorBelt bottomBelt = new ConveyorBelt("bottom", scanner);
-    private ConveyorBelt[] conveyorBelts= {leftBelt, rightBelt, topBelt, bottomBelt};
+    private ConveyorBelt[] conveyorBelts= {topBelt, bottomBelt, leftBelt, rightBelt};
 
     public ParcelDistributionCenter() {
         Random rand = new Random();
@@ -37,7 +37,7 @@ public class ParcelDistributionCenter extends JPanel {
                 type = "unknown";
             }
             parcels[i] = new Parcel(type, length, width, height, x, bottomOfParcel);
-            x -= parcelSpacing;
+            x -= PARCEL_SPACING;
         }
         addKeyListener(new KeyListener() {
             @Override
@@ -59,11 +59,11 @@ public class ParcelDistributionCenter extends JPanel {
     }
 
     public static int getScreenHeight() {
-        return screenHeight;
+        return SCREEN_HEIGHT;
     }
 
     public static int getScreenWidth() {
-        return screenWidth;
+        return SCREEN_WIDTH;
     }
 
     private void moveParcel() {
@@ -83,7 +83,7 @@ public class ParcelDistributionCenter extends JPanel {
         JFrame frame = new JFrame("Parcel Distribution Center");
         ParcelDistributionCenter window = new ParcelDistributionCenter();
         frame.add(window);
-        frame.setSize(screenWidth, screenHeight);
+        frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -96,7 +96,7 @@ public class ParcelDistributionCenter extends JPanel {
 
     private void drawBackground(Graphics2D g2d) {
         g2d.setColor(new Color(255, 255, 190));
-        g2d.fillRect(0, 0, screenWidth, screenHeight);
+        g2d.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 
     public void paint(Graphics g) {

@@ -2,11 +2,10 @@ import java.awt.image.*;
 import java.awt.*;
 import javax.imageio.*;
 import java.io.*;
-import java.sql.SQLOutput;
 
 public class Scanner {
     
-    private final int length = 170, height = 150, width = 80;
+    private int length = 170, height = 150, width = 80;
     private final int x = ParcelDistributionCenter.getScreenWidth() / 2 - (length / 2), y = ParcelDistributionCenter.getScreenHeight() / 2 + (height / 2) - 30;
     private final int nPoints = 5;
     private int[] polyFrontX = new int[nPoints];
@@ -15,33 +14,33 @@ public class Scanner {
     private int[] polySideY = new int[nPoints];
     private int[] polyTopX = new int[nPoints];
     private int[] polyTopY = new int[nPoints];
-    private double diagnol = (width * Math.sqrt(2)) / 2;
-    private int leftEdge = (int) (x - diagnol);
-    private int topEdge = (int) (y - diagnol - height);
-    private int totalLength = (int) (length + diagnol);
-    private int totalHeight = (int) (height + diagnol);
+    private double diagonal = (width * Math.sqrt(2)) / 2;
+    private int leftEdge = (int) (x - diagonal);
+    private int topEdge = (int) (y - diagonal - height);
+    private int totalLength = (int) (length + diagonal);
+    private int totalHeight = (int) (height + diagonal);
     private boolean turnOnLight = false;
     private int lightRadius = 30;
     private BufferedImage plane = null;
-    private final double planeScale = 0.6;
+    private double planeScale = 0.6;
     private int scaledPlaneWidth, scaledPlaneHeight;
     private BufferedImage truck = null;
-    private final double truckScale = 0.04;
+    private double truckScale = 0.04;
     private int scaledTruckWidth, scaledTruckHeight;
     private BufferedImage questionMark = null;
-    private final double questionMarkScale = 0.19;
+    private double questionMarkScale = 0.19;
     private int scaledQuestionMarkWidth, scaledQuestionMarkHeight;
     private boolean displayPlane = false, displayTruck = false, displayQuestionMark = false;
-    private final int imageX = 20, imageY = ParcelDistributionCenter.getScreenHeight() - 200;
+    private int imageX = 20, imageY = ParcelDistributionCenter.getScreenHeight() - 200;
 
     public Scanner() {
         try {
-            //  plane = ImageIO.read(new File("res\\plane.png"));
-            //  truck = ImageIO.read(new File("res\\truck.png"));
-            //  questionMark = ImageIO.read(new File("res\\questionMark.png"));
-           plane = ImageIO.read(new File("../res/plane.png"));
-           truck = ImageIO.read(new File("../res/truck.png"));
-           questionMark = ImageIO.read(new File("../res/questionMark.png"));
+            plane = ImageIO.read(new File("res\\plane.png"));
+            truck = ImageIO.read(new File("res\\truck.png"));
+            questionMark = ImageIO.read(new File("res\\questionMark.png"));
+//           plane = ImageIO.read(new File("../res/plane.png"));
+//           truck = ImageIO.read(new File("../res/truck.png"));
+//           questionMark = ImageIO.read(new File("../res/questionMark.png"));
         } catch (IOException e) {
             System.out.println("File loading error \n" + e);
         }
@@ -53,8 +52,8 @@ public class Scanner {
         this.scaledQuestionMarkHeight = (int) (questionMark.getHeight() * questionMarkScale);
     }
 
-    public double getDiagnol() {
-        return diagnol;
+    public double getDiagonal() {
+        return diagonal;
     }
 
     public int getX() {
@@ -127,27 +126,27 @@ public class Scanner {
         polyFrontY[3] = y;
         polyFrontY[4] = y - height;
 
-        polySideX[0] = (int) (x - diagnol);
+        polySideX[0] = (int) (x - diagonal);
         polySideX[1] = x;
         polySideX[2] = x;
-        polySideX[3] = (int) (x - diagnol);
-        polySideX[4] = (int) (x - diagnol);
-        polySideY[0] = (int) (y - height - diagnol);
+        polySideX[3] = (int) (x - diagonal);
+        polySideX[4] = (int) (x - diagonal);
+        polySideY[0] = (int) (y - height - diagonal);
         polySideY[1] = y - height;
         polySideY[2] = y;
-        polySideY[3] = (int) (y - diagnol);
-        polySideY[4] = (int) (y - height - diagnol);
+        polySideY[3] = (int) (y - diagonal);
+        polySideY[4] = (int) (y - height - diagonal);
 
-        polyTopX[0] = (int) (x - diagnol);
-        polyTopX[1] = (int) (x - diagnol + length);
+        polyTopX[0] = (int) (x - diagonal);
+        polyTopX[1] = (int) (x - diagonal + length);
         polyTopX[2] = x + length;
         polyTopX[3] = x;
-        polyTopX[4] = (int) (x - diagnol);
-        polyTopY[0] = (int) (y - height - diagnol);
-        polyTopY[1] = (int) (y - height - diagnol);
+        polyTopX[4] = (int) (x - diagonal);
+        polyTopY[0] = (int) (y - height - diagonal);
+        polyTopY[1] = (int) (y - height - diagonal);
         polyTopY[2] = y - height;
         polyTopY[3] = y - height;
-        polyTopY[4] = (int) (y - height - diagnol);
+        polyTopY[4] = (int) (y - height - diagonal);
 
         Polygon polyFront = new Polygon(polyFrontX, polyFrontY, nPoints);
         Polygon polySide = new Polygon(polySideX, polySideY, nPoints);

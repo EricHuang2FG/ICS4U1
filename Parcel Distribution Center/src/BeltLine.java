@@ -9,7 +9,7 @@ public class BeltLine {
     private int vx, vy;
     private Color beltColour;
     private int beltThickness;
-    private int convex = 12;
+    private int convex = 15;
     private ConveyorBelt motherBelt;
 
     public BeltLine(int x, int y, int thickness, String direction, Color colour, ConveyorBelt motherBelt) {
@@ -28,6 +28,15 @@ public class BeltLine {
         } else if (direction.equals("down")) {
             vx = 0;
             vy = Parcel.getTargetSpeed();
+        } else if (direction.equals("back")) {
+            vx = -Parcel.getTargetSpeed();
+            vy = 0;
+        } else if (direction.equals("up back")) {
+            vx = 0;
+            vy = Parcel.getTargetSpeed();
+        } else if (direction.equals("down back")) {
+            vx = 0;
+            vy = -Parcel.getTargetSpeed();
         }
     }
 
@@ -38,6 +47,12 @@ public class BeltLine {
             y += ConveyorBelt.getNumBelts() * beltThickness;
         } else if (direction.equals("down") && y - convex - beltThickness >= motherBelt.getY() + motherBelt.getHeight()) {
             y -= ConveyorBelt.getNumBelts() * beltThickness;
+        } else if (direction.equals("back") && x <= motherBelt.getX() - 12) {
+            x += ConveyorBelt.getNumBelts() * beltThickness;
+        } else if (direction.equals("up back") && y >= motherBelt.getY() + motherBelt.getHeight()) {
+            y -= ConveyorBelt.getNumBelts() * beltThickness;
+        } else if (direction.equals("down back") && y <= motherBelt.getY()) {
+            y += ConveyorBelt.getNumBelts() * beltThickness;
         }
         x += vx;
         y += vy;
@@ -107,6 +122,15 @@ public class BeltLine {
             g2d.fillPolygon(belt);
             g2d.setColor(Color.BLACK);
             g2d.drawPolygon(belt);
+        } else if (direction.equals("back") && x <= motherBelt.getX() + motherBelt.getLength()) {
+            g2d.setColor(Color.BLACK);
+            g2d.drawLine(x, y, x, y + 5);
+        } else if (direction.equals("up back") && y >= motherBelt.getY()) {
+            g2d.setColor(Color.BLACK);
+            g2d.drawLine(x, y, x - 5, y);
+        } else if (direction.equals("down back") && y <= motherBelt.getY() + motherBelt.getHeight()) {
+            g2d.setColor(Color.BLACK);
+            g2d.drawLine(x, y, x - 5, y);
         }
         g2d.setStroke(new BasicStroke(1));
     }

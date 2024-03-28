@@ -4,10 +4,10 @@ public class Parcel {
 
     private String type;
     private Color colour;
-    private final int length, width, height;
+    private int length, width, height;
     private int x, y;
-    private static final int targeSpeed = 3;
-    private int vx = targeSpeed, vy = 0;
+    private static final int TARGET_SPEED = 3;
+    private int vx = TARGET_SPEED, vy = 0;
     private final int nPoints = 5;
     private int[] polyFrontX = new int[nPoints];
     private int[] polyFrontY = new int[nPoints];
@@ -42,7 +42,7 @@ public class Parcel {
     }
 
     public static int getTargetSpeed() {
-        return targeSpeed;
+        return TARGET_SPEED;
     }
 
     public int getX() {
