@@ -36,12 +36,12 @@ public class Scanner {
 
     public Scanner() {
         try {
-             plane = ImageIO.read(new File("res\\plane.png"));
-             truck = ImageIO.read(new File("res\\truck.png"));
-             questionMark = ImageIO.read(new File("res\\questionMark.png"));
-//            plane = ImageIO.read(new File("../res/plane.png"));
-//            truck = ImageIO.read(new File("../res/truck.png"));
-//            questionMark = ImageIO.read(new File("../res/questionMark.png"));
+            //  plane = ImageIO.read(new File("res\\plane.png"));
+            //  truck = ImageIO.read(new File("res\\truck.png"));
+            //  questionMark = ImageIO.read(new File("res\\questionMark.png"));
+           plane = ImageIO.read(new File("../res/plane.png"));
+           truck = ImageIO.read(new File("../res/truck.png"));
+           questionMark = ImageIO.read(new File("../res/questionMark.png"));
         } catch (IOException e) {
             System.out.println("File loading error \n" + e);
         }
@@ -105,10 +105,10 @@ public class Scanner {
             if (!parcel.getSortSituation() && parcel.getX() >= x + 20) {
                 if (parcel.isType("international")) {
                     parcel.setVx(0);
-                    parcel.setVy(-4);
+                    parcel.setVy(-Parcel.getTargetSpeed());
                 } else if (parcel.isType("unknown")) {
                     parcel.setVx(0);
-                    parcel.setVy(4);
+                    parcel.setVy(Parcel.getTargetSpeed());
                 }
                 parcel.setSorted(true);
             }
@@ -169,10 +169,15 @@ public class Scanner {
         g2d.drawPolygon(polyFront);
         g2d.drawPolygon(polyTop);
         g2d.setStroke(new BasicStroke(1));
+        int[] lightDimensions = {x + 25, y - 70, lightRadius};
         if (turnOnLight) {
             g2d.setColor(Color.RED);
-            g2d.fillOval(x + 25, y - 70, lightRadius, lightRadius);
+            g2d.fillOval(lightDimensions[0], lightDimensions[1], lightDimensions[2], lightDimensions[2]);
         }
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawOval(lightDimensions[0], lightDimensions[1], lightDimensions[2], lightDimensions[2]);
+        g2d.setStroke(new BasicStroke(1));
         if (displayPlane) {
             g2d.drawImage(plane, imageX, imageY, scaledPlaneWidth, scaledPlaneHeight, null);
         }

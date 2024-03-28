@@ -75,6 +75,7 @@ public class ParcelDistributionCenter extends JPanel {
         scanner.sortParcel(parcels);
         for (ConveyorBelt conveyorBelt: conveyorBelts) {
             conveyorBelt.parcelCollision(parcels);
+            conveyorBelt.move();
         }
     }
 

@@ -17,7 +17,7 @@ public class ControlledConveyorBelt extends ConveyorBelt {
         if (!stopped) {
             for (Parcel parcel: parcels) {
                 if (parcel.getX() + parcel.getLength() <= x + length) {
-                    parcel.setVx(4);
+                    parcel.setVx(Parcel.getTargetSpeed());
                 }
             }
         } else {

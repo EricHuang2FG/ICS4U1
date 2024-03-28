@@ -6,7 +6,8 @@ public class Parcel {
     private Color colour;
     private final int length, width, height;
     private int x, y;
-    private int vx = 4, vy = 0;
+    private static final int targeSpeed = 3;
+    private int vx = targeSpeed, vy = 0;
     private final int nPoints = 5;
     private int[] polyFrontX = new int[nPoints];
     private int[] polyFrontY = new int[nPoints];
@@ -38,6 +39,10 @@ public class Parcel {
         this.topEdge = (int) (y - diagnol - height);
         this.totalLength = (int) (length + diagnol);
         this.totalHeight = (int) (height + diagnol);
+    }
+
+    public static int getTargetSpeed() {
+        return targeSpeed;
     }
 
     public int getX() {
