@@ -66,6 +66,29 @@ public class LinkedList {
         return sum;
     }
 
+    public boolean contains(int item) {
+        for (Node temp = head; temp != null; temp = temp.link) {
+            if (temp.element == item) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void deleteAll(int item) {
+        for (Node temp = head; temp != null; temp = temp.link) {
+            if (temp == head && temp.element == item) {
+                // finish tomorrow
+            }
+            if (temp.link == null) {
+                break;
+            }
+            if (temp.link.element == item) {
+                temp.link = temp.link.link;
+            }
+        }
+    }
+
     public String toString() {
         String str = "";
         for (Node temp = head; temp != null; temp = temp.link) {
