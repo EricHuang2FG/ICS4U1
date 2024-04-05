@@ -76,17 +76,13 @@ public class LinkedList {
     }
 
     public void deleteAll(int item) {
+        LinkedList newList = new LinkedList();
         for (Node temp = head; temp != null; temp = temp.link) {
-            if (temp == head && temp.element == item) {
-                // finish tomorrow
-            }
-            if (temp.link == null) {
-                break;
-            }
-            if (temp.link.element == item) {
-                temp.link = temp.link.link;
+            if (temp.element != item) {
+                newList.insertAtRear(temp.element);
             }
         }
+        this.head = newList.head;
     }
 
     public String toString() {
