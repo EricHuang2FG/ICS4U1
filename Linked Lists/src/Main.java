@@ -4,6 +4,7 @@ public class Main {
 
         LinkedList list1 = new LinkedList();
         LinkedList list2 = new LinkedList();
+        LinkedList list3 = new LinkedList();
         list1.insertAtRear(1);
         list1.insertAtRear(2);
         list1.insertAtRear(3);
@@ -26,6 +27,9 @@ public class Main {
         list1.insert(9);
         list1.insert(7);
         list1.print();
+        list3.insert(4);
+        list3.insert(6);
+        list3.print();
 
         Queue queue1 = new Queue();
         Queue queue2 = new Queue();
@@ -45,6 +49,16 @@ public class Main {
         stack1.print();
 
         System.out.println(evaluate("4 2 + 3 5 1 - * +"));
+
+        DLL dll1 = new DLL();
+        DLL dll2 = new DLL();
+        dll1.insertAtFront(5);
+        dll1.insertAtFront(6);
+        dll1.insertAtFront(7);
+        dll1.insertAtEnd(4);
+        dll1.print();
+        dll2.insertAtFront(100);
+        dll2.print();
     }
 
     public static int evaluate(String expression) {
@@ -71,4 +85,33 @@ public class Main {
         }
         return stack.peek();
     }
+
+    // Mangler:
+
+    // public int evaluatePostFix(String str) {
+    //     Stack s = new Stack();
+    //     String[] expressionParts = str.split(" ");
+    //     for (int i = 0; i < expressionParts.length; i++) {
+    //         if (expressionParts[i].equals("+")) {
+    //             int a = s.pop();
+    //             int b = s.pop();
+    //             s.push(b + a);
+    //         } else if (expressionParts[i].equals("-")) {
+    //             int a = s.pop();
+    //             int b = s.pop();
+    //             s.push(b - a);
+    //         } else if (expressionParts[i].equals("*")) {
+    //             int a = s.pop();
+    //             int b = s.pop();
+    //             s.push(b * a);
+    //         } else if (expressionParts[i].equals("/")) {
+    //             int a = s.pop();
+    //             int b = s.pop();
+    //             s.push(b / a);
+    //         } else {
+    //             s.push(Integer.parseInt(expressionParts[i]));
+    //         }
+    //     }
+    //     return s.pop();
+    // }
 }

@@ -142,18 +142,37 @@ public class LinkedList {
     }
 
     public void print() {
-        if (head == null) {
-            System.out.println("The list is empty!");
-            return;
-        }
         String list = "[";
         for (Node temp = head; temp != null; temp = temp.link) {
             if (temp.link == null) {
-                list += temp.element + "]";
+                list += temp.element;
             } else {
                 list += temp.element + ", ";
             }
         }
+        list += "]";
         System.out.println(list);
     }
+
+    // Mangler:
+
+    // public void insert(int item) {
+    //     boolean located = false;
+    //     Node current = head;
+    //     Node previous = null;
+    //     while (!located && current != null) {
+    //         if (item < current.element) {
+    //             located = true;
+    //         } else {
+    //             previous = current;
+    //             current = current.link;
+    //         }
+    //     }
+    //     Node newNode = new Node(item, current);
+    //     if (current == head) {
+    //         head = newNode;
+    //     } else {
+    //         previous.link = newNode;
+    //     }
+    // }
 }
