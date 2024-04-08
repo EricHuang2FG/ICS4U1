@@ -1,4 +1,5 @@
 public class LinkedList {
+
     private Node head;
 
     class Node {
@@ -34,6 +35,29 @@ public class LinkedList {
                     temp.link = new Node(item, null);
                     break;
                 }
+            }
+        }
+    }
+
+    public void insert(int item) {
+        if (head == null) {
+            head = new Node(item, null);
+        } else {
+            Node previous = null;
+            for (Node current = head; current != null; current = current.link) {
+                if (item <= current.element) {
+                    Node newNode = new Node(item, current);
+                    if (current == head) {
+                        head = newNode;
+                    } else {
+                        previous.link = newNode;
+                    }
+                    break;
+                } else if (current.link == null) {
+                    current.link = new Node(item, null);
+                    break;
+                }
+                previous = current;
             }
         }
     }
@@ -83,6 +107,26 @@ public class LinkedList {
             }
         }
         this.head = newList.head;
+    }
+
+    public boolean isOrderedIncreasing() {
+        for (Node temp = head; temp.link != null; temp = temp.link) {
+            if (temp.element > temp.link.element) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isIdentical(LinkedList other) {
+        Node l2 = other.head;
+        for (Node l1 = head; l1 != null; l1 = l1.link) {
+            if (l2.element != l1.element) {
+                return false;
+            }
+            l2 = l2.link;
+        }
+        return true;
     }
 
     public String toString() {
