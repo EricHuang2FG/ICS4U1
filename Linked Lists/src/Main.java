@@ -1,3 +1,9 @@
+import java.io.IOException;
+import java.io.*;
+import java.nio.Buffer;
+import java.util.Scanner;
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -59,6 +65,91 @@ public class Main {
         dll1.print();
         dll2.insertAtFront(100);
         dll2.print();
+
+        file01();
+        file02();
+        file03();
+    }
+
+    public static void file01() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a message: ");
+        String message = sc.nextLine();
+
+        try {
+            FileWriter fw = new FileWriter("res\\file01.txt");
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(message);
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("File writing error!");
+        }
+
+        try {
+            FileReader fr = new FileReader("res\\file01.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error!");
+        }
+    }
+
+    public static void file02() {
+        Random rand = new Random();
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            FileWriter fw = new FileWriter("res\\file02.txt");
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i = 0; i < 100; i++) {
+                int num = rand.nextInt(1, 11);
+                pw.println(num);
+            }
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("File writing error!");
+        }
+
+        System.out.print("How many values would you like to read? Must be less than 101 and greater than -1: ");
+        int numToRead = sc.nextInt();
+
+        try {
+            FileReader fw = new FileReader("res\\file02.txt");
+            BufferedReader br = new BufferedReader(fw);
+            int count = 1;
+            String line;
+            while ((line = br.readLine()) != null && count <= numToRead) {
+                System.out.println(line);
+                count++;
+            }
+        } catch (IOException e) {
+            System.out.println("File reading error!");
+        }
+    }
+
+    public static void file03() {
+        String info = "";
+
+        try {
+            FileReader fr = new FileReader("res\\file03.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int count = 1;
+            while ((line = br.readLine()) != null) {
+                info += line + ", ";
+                if (count % 3 == 0) {
+                    System.out.println(info.substring(0, info.length() - 2));
+                }
+                count++;
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error!!!!!!");
+        }
     }
 
     public static int evaluate(String expression) {

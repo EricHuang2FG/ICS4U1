@@ -23,14 +23,14 @@ public class DLL {
             first.link = first;
         } else {
             Node lastNode;
-            for (Node current = first; true != false; current = current.link) {
+            for (Node current = first; true; current = current.link) {
                 if (current.link == first) {
                     lastNode = current;
                     break;
                 }
             }
             first = new Node(item, first);
-            for (Node current = first; true != false; current = current.link) {
+            for (Node current = first; true; current = current.link) {
                 if (current == lastNode) {
                     current.link = first;
                     break;
@@ -44,7 +44,7 @@ public class DLL {
             first = new Node(item, null);
             first.link = first;
         } else {
-            for (Node current = first; true != false; current = current.link) {
+            for (Node current = first; true; current = current.link) {
                 if (current.link == first) {
                     current.link = new Node(item, first);
                     break;
@@ -60,7 +60,7 @@ public class DLL {
             first = null;
         } else {
             Node lastNode;
-            for (Node current = first; true != false; current = current.link) {
+            for (Node current = first; true; current = current.link) {
                 if (current.link == first) {
                     lastNode = current;
                     break;
@@ -78,7 +78,7 @@ public class DLL {
             first = null;
         } else {
             Node previous = null;
-            for (Node current = first; true != false; current = current.link) {
+            for (Node current = first; true; current = current.link) {
                 if (current.link == first) {
                     previous.link = first;
                     break;
@@ -95,7 +95,7 @@ public class DLL {
             deleteFirst();
         } else {
             Node previous = null;
-            for (Node current = first; true != false; current = current.link) {
+            for (Node current = first; true; current = current.link) {
                 if (current.link == first) {
                     if (current.element == value) {
                         deleteLast();
