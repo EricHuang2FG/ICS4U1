@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.*;
-import java.nio.Buffer;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -69,6 +68,10 @@ public class Main {
         file01();
         file02();
         file03();
+        file04();
+        file05a();
+        file05b();
+        file07();
     }
 
     public static void file01() {
@@ -149,6 +152,126 @@ public class Main {
             br.close();
         } catch (IOException e) {
             System.out.println("File reading error!!!!!!");
+        }
+    }
+
+    public static void file04() {
+        try {
+            FileReader fr = new FileReader("../res/file04.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int count = 1;
+            double num = 0.0;
+            String name = "";
+            while ((line = br.readLine()) != null) {
+                if (count == 1) {
+                    name = line;
+                    count++;
+                } else if (count == 5) {
+                    num += 1.0 * Integer.parseInt(line.trim());
+                    num /= 4.0;
+                    System.out.println(name + ": " + num);
+                    num = 0.0;
+                    count = 1;
+                } else {
+                    num += 1.0 * Integer.parseInt(line.trim());
+                    count++;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error!");
+        }
+    }
+
+    public static void file05a() {
+        try {
+            FileReader fr = new FileReader("../res/file05a.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int sum = 0;
+            int count = 1;
+            while ((line = br.readLine()) != null) {
+                sum += Integer.parseInt(line.trim());
+                count++;
+            }
+            System.out.println("The average is " + ((sum * 1.0) / (count * 1.0)));
+        } catch (IOException e) {
+            System.out.println("File reading error!!");
+        }
+    }
+
+    public static void file05b() {
+        try {
+            FileReader fr = new FileReader("../res/file05b.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int sum = 0;
+            int lineCount = 1;
+            while ((line = br.readLine()) != null) {
+                String[] stringNumbers = line.split(" ");
+                for (int i = 0; i < stringNumbers.length; i++) {
+                    if (!stringNumbers[i].equals("")) {
+                        sum += Integer.parseInt(stringNumbers[i].trim());
+                    }
+                }
+                lineCount++;
+            }
+            System.out.println(((sum * 1.0) / (8.0 * lineCount)));
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error!");
+        }
+    }
+
+    public static void file07() {
+        int lineCount = 0;
+        try {
+            FileReader fr = new FileReader("../res/file07.txt");
+            BufferedReader br = new BufferedReader(fr);
+            while (br.readLine() != null) {
+                lineCount++;
+            }
+            String[] oldData = new String[lineCount];
+            String line;
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                oldData[index] = line;
+                index++;
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error!!");
+        }
+
+        String[] oldData = new String[lineCount];
+        try {
+            FileReader fr = new FileReader("../res/file07.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                oldData[index] = line;
+                index++;
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error!!");
+        }
+
+        try {
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter a new name to insert in the file: ");
+            String newData = sc.nextLine();
+            FileWriter fw = new FileWriter("../res/file07.txt");
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i = 0; i < oldData.length; i++) {
+                pw.println(oldData[i]);
+            }
+            pw.println(newData);
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("File writing error!");
         }
     }
 
