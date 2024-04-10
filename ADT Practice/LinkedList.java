@@ -65,6 +65,25 @@ public class LinkedList {
         this.head = newList.head;
     }
 
+    public void delete(int item) {
+        if (head == null) {
+            System.out.println("The list is empty!");
+        } else {
+            Node previous = null;
+            for (Node current = head; current != null; current = current.link) {
+                if (current.element == item) {
+                    if (previous == null) {
+                        head = head.link;
+                    } else {
+                        previous.link = current.link;
+                    }
+                    break;
+                }
+                previous = current;
+            }
+        }
+    }
+
     public void insert(int item) {
         if (head == null) {
             head = new Node(item, null);
