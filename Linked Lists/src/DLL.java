@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class DLL {
 
     private Node first;
@@ -128,5 +130,23 @@ public class DLL {
         }
         list += "]";
         System.out.println(list);
+    }
+
+    public void writeToFile(String fileName) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            PrintWriter pw = new PrintWriter(fw);
+            boolean pastFirst = false;
+            for (Node current = first; true; current = current.link) {
+                if (pastFirst && current == first) {
+                    break;
+                }
+                pastFirst = true;
+                pw.println(current.element);
+            }
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("File writing error!");
+        }
     }
 }

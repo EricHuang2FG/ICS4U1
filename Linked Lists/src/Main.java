@@ -61,9 +61,11 @@ public class Main {
         dll1.insertAtFront(6);
         dll1.insertAtFront(7);
         dll1.insertAtEnd(4);
+        dll1.insertAtEnd(3);
         dll1.print();
         dll2.insertAtFront(100);
         dll2.print();
+        dll1.writeToFile("../res/fileDLL.txt");
 
         file01();
         file02();

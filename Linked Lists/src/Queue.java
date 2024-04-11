@@ -27,6 +27,11 @@ public class Queue {
     public String dequeue() {
         if (front == null && rear == null) {
             return "The queue is empty!";
+        } else if (front.link == null) {
+            int removedElement = front.element;
+            front = null;
+            rear = null;
+            return "" + removedElement;
         } else {
             int removedElement = front.element;
             front = front.link;
