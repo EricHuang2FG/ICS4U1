@@ -30,10 +30,15 @@ public class Queue {
         if (front == null && rear == null) {
             System.out.println("The queue is empty!");
             return 0;
+        } else if (front.link == null) {
+            int removedElement = front.info;
+            front = null;
+            rear = null;
+            return removedElement;
         } else {
-            int removedInfo = front.info;
+            int removedElement = front.info;
             front = front.link;
-            return removedInfo;
+            return removedElement;
         }
     }
 

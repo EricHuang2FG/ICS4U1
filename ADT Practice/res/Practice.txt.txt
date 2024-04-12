@@ -1,0 +1,163 @@
+public void deleteFirst() {
+    if (head == null) {
+        System.out.println("The list is empty!");
+    } else {
+        head = head.link;
+    }
+}
+
+public int findLargest(String fileName) {
+    int largest = 0;
+    try {
+        FileReader fr = new FileReader(fileName);
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while ((line = br.readLine()) != null) {
+            int num = Integer.parseInt(line.trim());
+            if (num > largest) {
+                largest = num;
+            }
+        }
+        br.close();
+    } catch (IOException e) {
+        System.out.println("File reading error");
+    }
+    return largest;
+} 
+
+public int matchingAB(String str) {
+    Stack s = new Stack();
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) == 'A') {
+            s.push(str.charAt(i));
+        } else if (str.charAt(i) == 'B') {
+            if (!s.isEmpty()) {
+                s.pop();
+            } else {
+                return -1;
+            }
+        }
+    }
+    if (s.isEmpty()) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+
+public class DLL {
+
+    private Node front, rear;
+
+    class Node {
+
+        int info;
+        Node prev, next;
+
+        Node(int info, Node prev, Node next) {
+            this.info = info;
+            this.prev = prev;
+            this.next = next;
+        }
+    }
+
+    public boolean isEmpty() {
+        return (front == null && rear == null);
+    }
+
+    public void insertAtFront(int item) {
+        if (front == null && rear == null) {
+            Node newNode = new Node(item, null, null);
+            front = newNode;
+            rear = newNode;
+        } else {
+            Node newNode = new Node(item, null, front);
+            front.prev = newNode;
+            front = newNode;
+        }
+    }
+
+    public void deleteLast() {
+        if (front == null && rear == null) {
+            System.out.println("DLL is empty!");
+        } else if (front.prev == null && front.next == null) {
+            front = null;
+            rear = null;
+        } else {
+            rear = rear.prev;
+            rear.next = null;
+        }
+    }
+
+    public void writeToFile(String fileName) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            PrintWriter pw = new PrintWriter(fw);
+            for (Node current = front; current.next != null; current = current.next) {
+                pw.println(current.info);
+            }
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("File writing error!");
+        }
+    }
+}
+
+public class DLL {
+
+    private Node front, rear;
+
+    class Node {
+
+        int info;
+        Node prev, next;
+
+        Node(int info, Node prev, Node next) {
+            this.info = info;
+            this.prev = prev;
+            this.next = next;
+        }
+    }
+
+    public boolean isEmpty() {
+        return (front == null && rear == null);
+    }
+
+    public void insertAtFront(int item) {
+        if (front == null && rear == null) {
+            Node newNode = new Node(item, null, null);
+            front = newNode;
+            rear = newNode;
+        } else {
+            Node newNode = new Node(item, null, front);
+            front.prev = newNode;
+            front = newNode;
+        }
+    }
+
+    public void deleteLast() {
+        if (front == null && rear == null) {
+            System.out.println("Empty DLL!");
+        } else if (front.next == null && rear.prev == null) {
+            front = null;
+            rear = null;
+        } else {
+            rear = rear.prev;
+            rear.next = null;
+        }
+    }
+
+    public void writeToFile(String fileName) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            PrintWriter pw = new PrintWriter(fw);
+            for (Node current = front; current != null; current = current.next) {
+                pw.println(current.info);
+            }
+            pw.close();
+        } catch (IOException e) {
+            System.out.println("File writing error!");
+        } 
+    }
+}

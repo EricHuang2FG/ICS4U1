@@ -22,5 +22,12 @@ public class Main {
         stack1.push(4);
         System.out.println(stack1.isEmpty());
         stack1.print();
+
+        DLL dll1 = new DLL();
+        dll1.insertAtFront(6);
+        dll1.insertAtFront(5);
+        dll1.insertAtFront(4);
+        dll1.deleteLast();
+        dll1.writeToFile("../res/dllOut.txt");
     }
 }
