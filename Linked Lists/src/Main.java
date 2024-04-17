@@ -54,6 +54,7 @@ public class Main {
         stack1.print();
 
         System.out.println(evaluate("4 2 + 3 5 1 - * +"));
+        System.out.println(evaluate("4 3 + 3 5 10 - * -"));
 
         DLL dll1 = new DLL();
         DLL dll2 = new DLL();
