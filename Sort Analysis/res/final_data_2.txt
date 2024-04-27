@@ -1,0 +1,346 @@
+Unit: nanoseconds / 1000
+
+
+
+
+
+--------------Random Distribution--------------
+
+
+
+
+Bubble Sort:
+
+
+Size 10^1: 			2.9
+
+Size 10^2: 			239.2
+
+Size 10^3: 			1688.6
+
+Size 10^4: 			177659.1
+
+Size 10^5: 			2.25051724E7
+
+
+
+
+Selection Sort:
+
+
+Size 10^1: 			2.3
+
+Size 10^2: 			213.7
+
+Size 10^3: 			1296.8
+
+Size 10^4: 			33417.4
+
+Size 10^5: 			2683809.5
+
+
+
+
+Insertion Sort:
+
+
+Size 10^1: 			1.6
+
+Size 10^2: 			560.9
+
+Size 10^3: 			1918.1
+
+Size 10^4: 			6460.0
+
+Size 10^5: 			746934.3
+
+
+
+
+Merge Sort:
+
+
+Size 10^1: 			4.6
+
+Size 10^2: 			61.7
+
+Size 10^3: 			455.8
+
+Size 10^4: 			6323.7
+
+Size 10^5: 			23417.8
+
+
+
+
+Quick Sort:
+
+
+Size 10^1: 			2.2
+
+Size 10^2: 			46.7
+
+Size 10^3: 			180.7
+
+Size 10^4: 			1359.2
+
+Size 10^5: 			21661.2
+
+
+
+
+
+--------------Nearly Sorted Distribution--------------
+
+
+
+
+Bubble Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			1.0
+
+Size 10^3: 			9.1
+
+Size 10^4: 			82.9
+
+Size 10^5: 			2635.8
+
+
+
+
+Selection Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			13.2
+
+Size 10^3: 			624.1
+
+Size 10^4: 			67311.5
+
+Size 10^5: 			1.93802112E7
+
+
+
+
+Insertion Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			1.0
+
+Size 10^3: 			7.3
+
+Size 10^4: 			67.4
+
+Size 10^5: 			639.9
+
+
+
+
+Merge Sort:
+
+
+Size 10^1: 			0.8
+
+Size 10^2: 			7.2
+
+Size 10^3: 			48.3
+
+Size 10^4: 			462.3
+
+Size 10^5: 			4956.7
+
+
+
+
+Quick Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			3.7
+
+Size 10^3: 			45.6
+
+Size 10^4: 			298.6
+
+Size 10^5: 			2935.2
+
+
+
+
+
+--------------Reversed Distribution--------------
+
+
+
+
+Bubble Sort:
+
+
+Size 10^1: 			2.8
+
+Size 10^2: 			77.2
+
+Size 10^3: 			1525.5
+
+Size 10^4: 			120808.1
+
+Size 10^5: 			1.14034125E7
+
+
+
+
+Selection Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			8.2
+
+Size 10^3: 			359.3
+
+Size 10^4: 			33217.3
+
+Size 10^5: 			2769303.3
+
+
+
+
+Insertion Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			3.1
+
+Size 10^3: 			178.6
+
+Size 10^4: 			13028.4
+
+Size 10^5: 			1489271.0
+
+
+
+
+Merge Sort:
+
+
+Size 10^1: 			0.2
+
+Size 10^2: 			4.7
+
+Size 10^3: 			52.8
+
+Size 10^4: 			437.5
+
+Size 10^5: 			3882.5
+
+
+
+
+Quick Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			2.5
+
+Size 10^3: 			29.3
+
+Size 10^4: 			340.5
+
+Size 10^5: 			2094.4
+
+
+
+
+
+--------------Few Unique Values Distribution--------------
+
+
+
+
+Bubble Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			22.3
+
+Size 10^3: 			889.3
+
+Size 10^4: 			134602.1
+
+Size 10^5: 			1.95811402E7
+
+
+
+
+Selection Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			7.7
+
+Size 10^3: 			292.4
+
+Size 10^4: 			31963.8
+
+Size 10^5: 			2618413.3
+
+
+
+
+Insertion Sort:
+
+
+Size 10^1: 			0.0
+
+Size 10^2: 			3.0
+
+Size 10^3: 			77.3
+
+Size 10^4: 			5112.9
+
+Size 10^5: 			574114.8
+
+
+
+
+Merge Sort:
+
+
+Size 10^1: 			0.5
+
+Size 10^2: 			10.0
+
+Size 10^3: 			71.7
+
+Size 10^4: 			731.0
+
+Size 10^5: 			7760.7
+
+
+
+
+Quick Sort:
+
+
+Size 10^1: 			0.2
+
+Size 10^2: 			4.6
+
+Size 10^3: 			38.5
+
+Size 10^4: 			359.0
+
+Size 10^5: 			6604.2
+
