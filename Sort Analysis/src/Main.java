@@ -25,7 +25,7 @@ public class Main {
         double[][] fewUniqueValuesDistributionData = runFewUniqueValuesDistribution();
 
         try {
-            FileWriter fw = new FileWriter("../res/data.txt");
+            FileWriter fw = new FileWriter("res\\data.txt");
             PrintWriter pw = new PrintWriter(fw);
 
             pw.println("Unit: nanoseconds / 1000\n");
