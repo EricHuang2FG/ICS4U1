@@ -1,0 +1,86 @@
+import java.io.*;
+
+public class Pokeminion {
+
+    private String name;
+    private int health;
+    private String[] abilities = new String[4];
+
+    public Pokeminion(String name, int health) {
+        this.name = name;
+        this.health = health;
+    }
+
+    public void addAbility(String name, int slot) {
+        this.abilities[slot] = name;
+    }
+
+    public void printAbilities() {
+        for (int i = 0; i < abilities.length; i++) {
+            System.out.println(this.abilities[i]);
+        }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+}
+
+public class MinionDex {
+
+    private Pokeminion[] list;
+
+    public void populateFromFile(String file) {
+        String[][] pokeminionInformation = new String[1][1]; // placeholder
+        list = new Pokeminion[1];
+        try {
+            FileReader fw = new FileReader(file);
+            BufferedReader br = new BufferedReader(fw);
+            String line;
+            int lineCount = 1;
+            int pokeminionIndex = 0;
+            int pokeminionInfoIndex = 0;
+            while ((line = br.readLine()) != null) {
+                if (lineCount == 1) {
+                    list = new Pokeminion[Integer.parseInt(line.trim())];
+                    pokeminionInformation = new String[Integer.parseInt(line.trim())][6];
+                } else {
+                    pokeminionInformation[pokeminionIndex][pokeminionInfoIndex] = line.trim();
+                    pokeminionIndex++;
+                }
+                if (pokeminionIndex == 5) {
+                    pokeminionIndex++;
+                    pokeminionInfoIndex = 0;
+                }
+                lineCount++;
+            }
+            for (int i = 0; i < pokeminionInformation.length; i++) {
+                String[] information = pokeminionInformation[i];
+                Pokeminion newCharacter = new Pokeminion(information[0], Integer.parseInt(information[1]));
+                newCharacter.addAbility(information[2], 0);
+                newCharacter.addAbility(information[3], 1);
+                newCharacter.addAbility(information[4], 2);
+                newCharacter.addAbility(information[5], 3);
+                list[i] = newCharacter;
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("File reading error " + e);
+        }
+    }
+
+    public void printAllNames() {
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(list[i].getName);
+        }
+    }
+
+    public void printAllDetails() {
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(list[i].getName());
+            list[i].printAbilities();
+        }
+    }
+
+}
