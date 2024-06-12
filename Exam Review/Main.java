@@ -1,7 +1,12 @@
 public class Main {
 
     public static void main(String[] args) {
-        
+        List list1 = new List();
+        list1.addAtRear(1);
+        // list1.addAtRear(2);
+        // list1.addAtRear(3);
+        list1.delete(3);
+        list1.print();
     } 
 
     public static int countChar(String str, char ch) {

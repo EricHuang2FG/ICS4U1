@@ -63,6 +63,26 @@ public class List {
         this.head = newList.head;
     }
 
+    public void delete(int item) {
+        if (head == null) {
+            System.out.println("Can't delete, the list is empty");
+        } else {
+            Node previous = null;
+            for (Node current = head; current != null; current = current.link) {
+                if (current.info == item) {
+                    if (current == head) {
+                        head = head.link;
+                        break;
+                    } else {
+                        previous.link = current.link;
+                        break;
+                    }
+                }
+                previous = current;
+            }
+        }
+    }
+
     public void insert(int item) {
         if (head == null) {
             head = new Node(item, null);
